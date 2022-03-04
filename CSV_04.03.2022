@@ -1,0 +1,8 @@
+import csv
+
+with open("task 14.csv") as File:
+    temp = [i[:4] for i in csv.reader(File, delimiter=';', quotechar=',', quoting=csv.QUOTE_MINIMAL) if i[2] == "информатика" and int(i[3]) > 600]
+    qt_create = []
+    for el in temp: qt_create.append(int(el[-1]))
+    print(len(temp))
+    print(sum(qt_create) / len(qt_create))
