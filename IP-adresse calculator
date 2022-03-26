@@ -1,0 +1,35 @@
+def net(ip, mask):
+    k = []
+    for i1 in range(4):
+        f = ''
+        for i2 in range(8):
+            if mask[i1] != 0: f += str(int(str(ip[i1])[i2]) & int(str(mask[i1])[i2]))
+            else: f += '0'
+        k.append(int(f, 2))
+    return k
+
+def host(ip, mask):
+    k = []
+    net_rep = net(ip, mask)
+    for i in range(4): k.append(int(str(ip[i]), 2) - net_rep[i])
+    return k
+
+data = input().split("/")
+ip = [int(str(bin(int(i)))[2:]) for i in data[0].split('.')]
+mask, k = [], int(data[1])
+for i1 in range(4):
+    a = ''
+    for i2 in range(8):
+        if k != 0:
+            k -= 1
+            a += '1'
+        else: a += '0'
+    mask.append(int(a))
+
+print("IP-адрес пользователя --> ", ".".join([str(int(str(i), 2)) for i in ip]))
+print("IP-адрес подсети пользователя --> ", ".".join([str(i) for i in net(ip, mask)]))
+print("IP-адрес хоста пользователя --> ", ".".join([str(i) for i in host(ip, mask)]))
+print("Возможное количество пользователей -->", 2 ** (32 - int(data[1])) - 2)
+# 192.168.222.77/20
+
+
