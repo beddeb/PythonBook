@@ -1,0 +1,7 @@
+def art(a, b):
+    if a > b: return 0
+    if a == 24: return 0
+    if a == b: return 1
+    return art(a + 1, b) + art(a * 3, b)
+
+print(art(2, 12) * art(12, 72))
