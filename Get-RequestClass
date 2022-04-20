@@ -1,0 +1,36 @@
+import requests
+import json
+from PIL import Image, ImageDraw, ImageColor
+
+
+class Stalker:
+    def __init__(self, token):
+        self.fq = (requests.get("https://dt.miet.ru/ppo_it_final", headers={"X-Auth-Token": token})).json()
+        
+    def detector_coords(self):
+        return tuple(self.fq['message'][0]['coords']), tuple(self.fq['message'][1]['coords']), tuple(self.fq['message'][2]['coords']), tuple(self.fq['message'][3]['coords'])
+        
+    def anomals_id(self):
+        ups = []
+        for i in self.fq['message']:
+            for j in i['swans']: ups.append(j['id'])
+        return list(set(ups))
+
+    def marks(self):
+        image = Image.open('map.png')
+        draw = ImageDraw.Draw(image)
+        for el in obj.detector_coords():
+            draw.rectangle((50 * el[0], 50 * el[1], 50 * el[0] + 50, 50 * el[1] + 50), fill=ImageColor.getrgb("green"))
+            image.save("test.png", "PNG")
+            
+    def printf(self):
+        with open('names.json', 'w') as f:
+            json.dump(self.fq, f, sort_keys=True, indent=2)
+        with open('names.json') as f:
+            return f.read()
+            
+    def print_request(self):
+        for i in self.fq['message']: print(i)
+        
+tk = 'wewtzbqf'
+obj = Stalker(tk)
