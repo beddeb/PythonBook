@@ -16,6 +16,7 @@ def all_request(ip, mask):
     ip = ''.join(ip)[:int(data[1])] + '1' * (32 - int(data[1]))
     return [ip[:8]] + [ip[8:16]] + [ip[16:24]] + [ip[24:]]
 
+
 data = input().split("/")
 if data[1] == "A": data = [data[0], '8']
 elif data[1] == "B": data = [data[0], '16']
@@ -31,4 +32,6 @@ print("Маска --> ", ".".join([str(int(str(i), 2)) for i in mask]), '<' + ".
 print("IP-адрес подсети пользователя --> ", ".".join([str(int(i, 2)) for i in net(ip, mask)]), '<' + ".".join(net(ip, mask)) + '>')
 print("IP-адрес хоста пользователя --> ", ".".join([str(int(i, 2)) for i in host(ip, mask)]), '<' + ".".join(host(ip, mask)) + '>')
 print("Широковещательный IP-адрес --> ", ".".join([str(int(i, 2)) for i in all_request(ip, mask)]), '<' + ".".join(all_request(ip, mask)) + '>')
+print("Минимальный хост --> ",  ".".join([str(int(i, 2)) for i in net(ip, mask)])[:-1] + '1', '<' + ".".join(net(ip, mask))[:-1] + '1' + '>')
+print("Максимальный хост --> ",  ".".join([str(int(i, 2)) for i in all_request(ip, mask)])[:-1] + '4', '<' + ".".join(all_request(ip, mask))[:-1] + '0' + '>')
 print("Возможное количество пользователей -->", 2 ** (32 - int(data[1])) - 2)
