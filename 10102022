@@ -9,3 +9,11 @@ while i <= 0.5:
     if abs(q1 - H) < temp: temp = abs(q1 - H); total = w1
     i += 0.01
 print((total * 180) / math.pi)
+i, temp, total = i / 2, H, 0
+while i <= 0.5:
+    w1 = i * math.pi
+    t = S / (V * math.cos(w1))
+    q1 = V * t * math.sin(w1) - ((9.8 * (t ** 2)) / 2)
+    if abs(q1 - H) < temp: temp = abs(q1 - H); total = w1
+    i += 0.01
+print((total * 180) / math.pi)
